@@ -1,0 +1,44 @@
+{% extends "auctions/layout.html" %}
+
+{% block watchlist_count %}
+    {{ watchlist_count }}
+{% endblock %}
+
+{% block body %}
+    <h2>Create Listing</h2>
+
+    <form action="{% url 'store_listing' %}" method="post" class="col-8">
+        {% csrf_token %}
+        <div class="align-items-center">
+            <div class="form-group">
+                <label for="itemTitleInput">Item Title</label>
+                <input type="text" class="form-control" id="itemTitleInput" placeholder="Ex: Kryptonite" required
+                       name="title">
+            </div>
+            <div class="form-group">
+                <label for="itemStartingBidInput">Item Starting Bid</label>
+                <input type="number" data-decimals="2" min="0" step="0.1" class="form-control" id="itemStartingBidInput"
+                       required name="starting_bid">
+            </div>
+            <div class="form-group">
+                <label for="itemCategoryInput">Item Category</label>
+                <select class="form-control" id="itemCategoryInput" name="category_id">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="itemImageInput">Item Image Url</label>
+                <input type="text" class="form-control" id="itemImageInput" name="image_url">
+            </div>
+            <div class="form-group">
+                <label for="itemDescriptionInput">Item Description</label>
+                <textarea class="form-control" id="itemDescriptionInput"
+                          placeholder="Ex: It is a green, crystalline material originating from Superman's home world of Krypton that emits a unique, poisonous radiation that weakens Kryptonians. The longer they are exposed to it, the weaker they will get, to the point of death. This also makes the element deadly enough to pierce through Kryptonian skin if a piece of it was carved into a bullet, sharp blade, or spear. The kryptonite’s radiation can emit through any element except lead. Thus, Superman has a special lead suit to protect himself from the radiation."
+                          rows="10" cols="10" required name="description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Create</button>
+        </div>
+    </form>
+{% endblock %}

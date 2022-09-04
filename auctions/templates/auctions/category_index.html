@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+{% load humanize %}
+
+{% block watchlist_count %}
+    {{ watchlist_count }}
+{% endblock %}
+
+{% block body %}
+    <h2 class="m-4">Categories</h2>
+
+    <div class="row" style="margin: 0">
+        <ul class="list-group">
+            {% for category in categories %}
+                <li class="list-group-item list-group-item-action">
+                    <a href="{% url 'show_category' category_id=category.id %}">
+                        {{ category }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
