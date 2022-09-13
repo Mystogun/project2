@@ -141,14 +141,16 @@
                     <div class="row">
                         <div class="col-md-8 col-sm-12">
                             {% if user.is_authenticated %}
-                                <form action="{% url 'comment' listing_id=listing.id %}" method="post">
-                                    {% csrf_token %}
-                                    <textarea name="content" class="form-control"
-                                              placeholder="leave a comment..." rows="3"
-                                              required></textarea>
-                                    <br>
-                                    <input type="submit" class="btn btn-info" value="Post">
-                                </form>
+                                {% if listing.status %}
+                                    <form action="{% url 'comment' listing_id=listing.id %}" method="post">
+                                        {% csrf_token %}
+                                        <textarea name="content" class="form-control"
+                                                  placeholder="leave a comment..." rows="3"
+                                                  required></textarea>
+                                        <br>
+                                        <input type="submit" class="btn btn-info" value="Post">
+                                    </form>
+                                {% endif %}
                             {% else %}
                                 <p><strong>You like to leave a comment?</strong></p>
                                 <p>You should <a href="{% url 'login' %}">Log In</a> or <a
